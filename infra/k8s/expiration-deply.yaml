@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expiration-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expiration
+  template:
+    metadata:
+      labels:
+        app: expiration
+    spec:
+      containers:
+        - name: expiration
+          image: us.gcr.io/ticketing-dev-361001/expiration
+          env: #create env variable and add jwt key into it
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            #set NATS client id to be the randomly-generated pod name of this pod instance
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URI
+              value: 'http://nats-srv:4222'
+            - name: REDIS_HOST
+              value: expiration-redis-srv

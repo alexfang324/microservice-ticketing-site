@@ -1,0 +1,9 @@
+README.docx
+images/*
+node_modules
+./auth/node_modules
+./client/node_modules
+./common/node_modules
+./expiration/node_modules
+./orders/node_modules
+./tickets/node_modules
