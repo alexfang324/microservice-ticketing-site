@@ -11,6 +11,13 @@ spec:
       http:
         #the incoming traffic are routed with priority in the order given
         paths:
+          - path: /api/payments/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: payments-srv
+                port:
+                  number: 3000
           - path: /api/users/?(.*)
             pathType: Prefix
             backend:

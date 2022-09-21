@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orders-depl
+  name: payments-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orders
+      app: payments
   template:
     metadata:
       labels:
-        app: orders
+        app: payments
     spec:
       containers:
-        - name: orders
-          image: us.gcr.io/ticketing-dev-361001/orders
+        - name: payments
+          image: us.gcr.io/ticketing-dev-361001/payments
           env: #create env variable and add jwt key into it
             - name: NATS_CLUSTER_ID
               value: ticketing
@@ -26,24 +26,27 @@ spec:
             - name: NATS_URI
               value: 'http://nats-srv:4222'
             - name: MONGO_URI
-              value: 'mongodb://orders-mongo-srv:27017/orders'
+              value: 'mongodb://payments-mongo-srv:27017/payments'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-            - name: EXPIRATION_WINDOW_SECONDS
-              value: '300'
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: STRIPE_KEY
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: orders-srv
+  name: payments-srv
 spec:
   selector:
-    app: orders
+    app: payments
   ports:
-    - name: orders
+    - name: payments
       protocol: TCP
       port: 3000
       targetPort: 3000
