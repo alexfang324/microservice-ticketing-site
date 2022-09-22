@@ -4,6 +4,7 @@ deploy:
   kubectl:
     manifests:
       - ./infra/k8s/*
+      - ./infra/k8s-dev/*
 build:
   #local:               #used only when working with local k8s cluster
   #  push: false        #can only keep one of local or googleCloudBuild
