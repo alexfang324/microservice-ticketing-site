@@ -2,7 +2,6 @@ import { app } from './app';
 import mongoose from 'mongoose';
 
 const start = async () => {
-  console.log('Starting ...');
   //check we can import jwt token specified in k8s deployment file
   if (!process.env.JWT_KEY) {
     throw new Error('JWT must be defined');
