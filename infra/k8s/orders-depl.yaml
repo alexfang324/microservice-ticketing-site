@@ -33,7 +33,7 @@ spec:
                   name: jwt-secret
                   key: JWT_KEY
             - name: EXPIRATION_WINDOW_SECONDS
-              value: '300'
+              value: '60'
 ---
 apiVersion: v1
 kind: Service
