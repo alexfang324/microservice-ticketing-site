@@ -1,0 +1,38 @@
+name: deploy-auth
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'auth/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+          
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+          
+      # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@master
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.GKE_SA_KEY }}
+          
+      # Docker build
+      - run: cd auth
+      - run: docker build -t us.gcr.io/ticketing-dev-361001/auth .
+      - run: docker push us.gcr.io/ticketing-dev-361001/auth
+      - run: kubectl rollout restart deployment auth-depl
