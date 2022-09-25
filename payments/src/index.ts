@@ -5,6 +5,8 @@ import { OrderCancelledListener } from './events/listeners/order-cancelled-liste
 import { OrderCreatedListener } from './events/listeners/order-created-listener';
 
 const start = async () => {
+  console.log('STARTING ...');
+
   //check we can import jwt token specified in k8s deployment file
   if (!process.env.JWT_KEY) {
     throw new Error('JWT must be defined');
