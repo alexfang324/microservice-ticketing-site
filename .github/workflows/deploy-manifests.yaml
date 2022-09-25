@@ -18,12 +18,12 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
-                   
-      # Get the GKE credentials so we can deploy to the cluster
+
+      # Get the GKE credentials so we can deploy to cluster
       - uses: google-github-actions/get-gke-credentials@v0
         with:
-          cluster_name: ${{ env.GKE_CLUSTER }}
-          location: ${{ env.GKE_ZONE }}
+          cluster_name: ${{ secrets.GKE_CLUSTER }}
+          location: ${{ secrets.GKE_ZONE }}
           credentials: ${{ secrets.GKE_SA_KEY }}
 
       - run: kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-prod
