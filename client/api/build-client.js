@@ -5,15 +5,17 @@ import axios from 'axios';
 //and append a cookie through header.
 
 export default ({ req }) => {
-  //decide base-path base on existence of a window (a browser object). if it exists
-  //the request is made from browser, else it's made from the Next.js server
+  //decide base-path base on existence of a window (a browser object).
   if (typeof window === 'undefined') {
+    //request is made from server. Once user has bought a domain name,
+    //need to change this server base url to the domain name instead
     return axios.create({
       baseURL:
         'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
       headers: req.headers
     });
   } else {
+    //request is made from browser
     return axios.create({
       baseURL: '/'
     });
