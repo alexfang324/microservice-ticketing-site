@@ -32,7 +32,6 @@ jobs:
           credentials: ${{ secrets.GKE_SA_KEY }}
 
       # Docker build
-      - run: cd auth
       - run: docker build -t us.gcr.io/ticketing-dev-361001/auth .
       - run: docker push us.gcr.io/ticketing-dev-361001/auth
       - run: kubectl rollout restart deployment auth-depl
