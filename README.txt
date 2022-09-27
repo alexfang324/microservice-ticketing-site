@@ -1,8 +1,5 @@
 About this app:
-This is a ticket selling e-commerce site that adopts a microservice architecture with asynchronized communication.
-For simplicity, the app uses the same jwt secret to generate all jwt token and the secret is created as a kubernetes secret.
-The payment is handled by Stripe API. User must add a "jwt-secret" and "stripe-secret" to the kubernetes secrets prior to starting the app
-
+This is a ticket selling e-commerce site that adopts a microservice architecture with asynchronized communication. For simplicity, the app uses the same jwt secret to generate all jwt token and the secret is created as a kubernetes secret. The payment is handled by Stripe API. User must add a "jwt-secret" and "stripe-secret" to the kubernetes secrets prior to starting the app
 
 App Highlight:
     Structure:
