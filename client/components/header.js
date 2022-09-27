@@ -23,7 +23,9 @@ export default ({ currentUser }) => {
   return (
     <nav className="navbar navbar-light bg-light">
       <Link href="/">
-        <a className="navbar-brand">GitTix</a>
+        <a className="navbar-brand" style={{ textIndent: 10 }}>
+          GitTix
+        </a>
       </Link>
 
       <div className="d-flex justify-content-end">

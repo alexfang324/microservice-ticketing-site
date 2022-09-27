@@ -2,6 +2,8 @@ import Link from 'next/link';
 
 const LandingPage = ({ currentUser, tickets }) => {
   const ticketList = tickets.map((ticket) => {
+    const statusColor = ticket.orderId ? 'red' : 'green';
+    const ticketStatus = ticket.orderId ? 'Sold out' : 'Available';
     return (
       <tr key={ticket.id}>
         <td>
@@ -10,18 +12,20 @@ const LandingPage = ({ currentUser, tickets }) => {
           </Link>
         </td>
         <td>{ticket.price}</td>
+        <td style={{ color: statusColor }}>{ticketStatus}</td>
       </tr>
     );
   });
 
   return (
     <div>
-      <h1>Tickets available for purchase</h1>
+      <h1>All Tickets</h1>
       <table className="table">
         <thead>
           <tr>
             <th>Title</th>
             <th>Price</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>{ticketList}</tbody>
