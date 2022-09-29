@@ -1,5 +1,5 @@
 About this app:
-This is a ticket selling e-commerce site that adopts a microservice architecture with asynchronized communication. For simplicity, the app uses the same jwt secret to generate all jwt token and the secret is created as a kubernetes secret. The payment is handled by Stripe API. User must add a "jwt-secret" and "stripe-secret" to the kubernetes secrets prior to starting the app
+This is a ticket selling e-commerce site that adopts a microservice architecture with asynchronized communication. For simplicity, the app uses the same jwt secret to generate all jwt token and the secret is created as a kubernetes secret. The payment is handled by Stripe API. User must add a "jwt-secret" and "stripe-secret" to the kubernetes secrets prior to starting the app. The microservices use a npm library "common" that I published to npm registry. A copy is also included in this repo so the user can examine its content easily.
 
 App Highlight:
     Structure:
@@ -12,6 +12,7 @@ App Highlight:
 
     Implementation:
     - input data checked using type annotation and interfaces
+    - input validation using bodyParser library
     - code tested using Jest, Jest mock object, and Postman
     - concurrency handled using counters
     - user authentication handled with jwt carried Cookie
